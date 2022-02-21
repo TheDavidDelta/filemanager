@@ -1,14 +1,8 @@
 .App {
-  --app-background-color: #1c1c1c;
-  --app-horizontal-margin: 65px;
-  --app-normal-font: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-
-  background: var(--app-background-color);
-  color: #ffffff;
-  font-family: var(--app-normal-font);
-  display: grid;
-  flex: 1 auto;
-  grid-template-columns: 300px 1fr;
-  grid-template-rows: 1fr;
-  height: 100%;
+    color: #ffffff;
+    display: grid;
+    flex: 1 auto;
+    grid-template-columns: 300px 1fr;
+    grid-template-rows: 1fr;
+    height: 100%;
 }

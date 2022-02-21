@@ -1,2 +1,8 @@
-.FileContent {
+.root {
+    background-color: #191919;
+    font-size: 16px;
+    font-family: monospace;
+    overflow: auto;
+    height: 100%;
+    padding: 24px 24px 0;
 }

@@ -1,17 +1,15 @@
 import { File } from "../../types/File";
 
 export enum ActionType {
-  SELECT = "FILEMANAGER_SELECT"
+    SELECT = "FILEMANAGER_SELECT"
 }
 
-export const selectFile = (selectedFile: File) => {
-  return {
+export const selectFile = (selectedFile: File) => ({
     type: ActionType.SELECT as const,
     payload: {
-      selectedFile
+        selectedFile
     }
-  };
-};
+});
 
 export type Action = ReturnType<typeof selectFile>;
 

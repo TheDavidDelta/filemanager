@@ -1,7 +1,26 @@
-.FileExplorerItem {}
+.content {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    padding: 8px 18px;
+}
 
-.FileExplorerIcon {}
+.regfile:hover {
+    background-color: #3f3f3f;
+    cursor: pointer;
+}
 
-.FileExplorerSize {
-    display: none;
+.selected {
+    background-color: #1c1c1c !important;
+}
+
+.icon {
+    width: 18px;
+    height: 18px;
+    margin-right: 4px;
+}
+
+.size {
+    margin-left: auto;
+    font-size: 12px;
 }

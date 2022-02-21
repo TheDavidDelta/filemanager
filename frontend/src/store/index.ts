@@ -6,13 +6,13 @@ import filemanagerReducer, { State as filemanagerState } from './filemanager';
 import filesReducer, { State as filesState } from './files';
 
 type RootState = {
-  filemanager: filemanagerState,
-  files: filesState
+    filemanager: filemanagerState,
+    files: filesState
 }
 
 const reducers = combineReducers({
-  filemanager: filemanagerReducer,
-  files: filesReducer
+    filemanager: filemanagerReducer,
+    files: filesReducer
 });
 
 const middlewares = compose(applyMiddleware(thunk));

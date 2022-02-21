@@ -2,30 +2,57 @@ import FileIcon from '../assets/images/file.svg';
 import FolderIcon from '../assets/images/folder.svg';
 import styles from "./FileExplorerItem.module.css";
 import { File } from "../types/File";
+import { selectFile } from "../store/filemanager";
+import { useAppSelector } from "../store";
+import { useDispatch } from "react-redux";
+import parseSize from "../utils/parseSize";
 
 type Props = {
-  file: File;
+    file: File;
+    depth?: number;
 };
 
-const FileExplorer = ({ file }: Props) => {
-  return (
-    <div key={file.id} className={styles.FileExplorerItem}>
-      {file.kind === 'folder' ? (
-        <FolderIcon className={styles.FileExplorerIcon} />
-      ) : (
-        <FileIcon className={styles.FileExplorerIcon} />
-      )}
-      {file.name}
-      <div className={styles.FileExplorerSize}>
-        {file.size}
-      </div>
-      <div>
-        {file.kind === "folder" && file.children?.map(child => (
-          <FileExplorer key={child.id} file={child} />
-        ))}
-      </div>
-    </div>
-  );
+const FileExplorerItem = ({ file, depth = 0 }: Props) => {
+    const dispatch = useDispatch();
+    const { selectedFile } = useAppSelector(store => store.filemanager);
+
+    const isRegFile = file.kind === "file";
+    const isSelected = file.id === selectedFile?.id;
+
+    const onSelectFile = () => {
+        isRegFile && !isSelected && dispatch(selectFile(file));
+    };
+
+    return (
+        <div>
+            <div
+                className={`${styles.content} ${isSelected && styles.selected} ${isRegFile && styles.regfile}`}
+                style={{ paddingLeft: `${18 + depth * 8}px` }}
+                role={isRegFile ? "button" : ""}
+                tabIndex={isRegFile ? 0 : undefined}
+                onClick={onSelectFile}
+                onKeyDown={ev => ev.key === "Enter" && onSelectFile()}
+            >
+                {isRegFile ? (
+                    <FileIcon className={styles.icon} />
+                ) : (
+                    <FolderIcon className={styles.icon} />
+                )}
+
+                {file.name}
+
+                <div className={styles.size}>
+                    {isRegFile && parseSize(file.size)}
+                </div>
+            </div>
+
+            <div>
+                {!isRegFile && file.children?.map(child => (
+                    <FileExplorerItem key={child.id} file={child} depth={depth + 1} />
+                ))}
+            </div>
+        </div>
+    );
 };
 
-export default FileExplorer;
+export default FileExplorerItem;

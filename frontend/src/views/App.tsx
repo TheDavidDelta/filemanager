@@ -10,22 +10,22 @@ import styles from "./App.module.css";
 
 const POLL_INTERVAL = 5000;
 
-function App() {
-  const dispatch = useDispatch();
+const App = () => {
+    const dispatch = useDispatch();
 
-  useInterval(() => {
-    dispatch(refreshFiles());
-  }, POLL_INTERVAL, true);
+    useInterval(() => {
+        dispatch(refreshFiles());
+    }, POLL_INTERVAL, true);
 
-  const filesState = useAppSelector(store => store.files);
-  const { selectedFile } = useAppSelector(store => store.filemanager);
+    const filesState = useAppSelector(store => store.files);
+    const { selectedFile } = useAppSelector(store => store.filemanager);
 
-  return (
-    <div className={styles.App}>
-      <FileExplorer filesState={filesState} />
-      <FileContent file={selectedFile} />
-    </div>
-  );
+    return (
+        <div className={styles.App}>
+            <FileExplorer filesState={filesState} />
+            <FileContent file={selectedFile} />
+        </div>
+    );
 }
 
 export default App;
