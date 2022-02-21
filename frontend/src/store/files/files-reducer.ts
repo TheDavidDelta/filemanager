@@ -20,7 +20,7 @@ export type State = {
     errorMsg: string
 };
 
-const initialState: State = {
+export const initialState: State = {
     loading: FetchingState.NONE
 };
 

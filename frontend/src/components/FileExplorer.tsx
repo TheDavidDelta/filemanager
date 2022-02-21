@@ -7,7 +7,7 @@ type Props = {
 };
 
 const FileExplorer = ({ filesState }: Props) => (
-    <div className={styles.root}>
+    <div className={styles.root} data-testid="explorer">
         {filesState.loading === FetchingState.NONE ? (
             <div className={styles.message}>
                 The root folder is empty.

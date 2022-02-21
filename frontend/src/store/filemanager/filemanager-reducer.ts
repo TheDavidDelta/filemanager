@@ -5,7 +5,7 @@ export type State = {
     selectedFile?: File
 };
 
-const initialState: State = {};
+export const initialState: State = {};
 
 export default (state = initialState, action: Action) => {
     switch (action.type) {

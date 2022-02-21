@@ -6,7 +6,7 @@ type Props = {
 };
 
 const FileContent = ({ file }: Props) => (
-    <div className={styles.root}>
+    <div className={styles.root} data-testid="content">
         <pre>
             {file?.kind === "file" && window.atob(file.content)}
         </pre>
