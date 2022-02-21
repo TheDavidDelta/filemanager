@@ -1,23 +1,52 @@
 import { File } from "../../types/File";
 import { Action, ActionType } from "./files-actions";
 
+export enum FetchingState {
+  NONE,
+  LOADING,
+  SUCCESS,
+  ERROR
+}
+
 export type State = {
-  loaded: boolean,
+  loading: FetchingState.NONE
+} | {
+  loading: FetchingState.LOADING
+} | {
+  loading: FetchingState.SUCCESS,
   list: File[]
+} | {
+  loading: FetchingState.ERROR,
+  errorMsg: string
 };
 
-export const initialState: State = {
-  loaded: false,
-  list: []
+const initialState: State = {
+  loading: FetchingState.NONE
 };
 
-export default (state = initialState, action: Action) => {
+export default (state: State = initialState, action: Action) => {
   switch (action.type) {
-    case ActionType.RECEIVE:
+    case ActionType.FETCH_START:
+      return state.loading === FetchingState.SUCCESS
+        ? state
+        : {
+          loading: FetchingState.LOADING
+        };
+    case ActionType.FETCH_SUCCESS:
+      const { list } = action.payload;
       return {
-        ...state,
-        loaded: true,
-        list: action.payload.files ?? []
+        loading: FetchingState.SUCCESS,
+        list
+      };
+    case ActionType.FETCH_ERROR:
+      const { errorMsg } = action.payload;
+      return {
+        loading: FetchingState.ERROR,
+        errorMsg
+      };
+    case ActionType.DISCARD_ERROR:
+      return {
+        loading: FetchingState.NONE
       };
     default:
       return state;

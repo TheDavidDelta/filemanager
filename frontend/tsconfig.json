@@ -12,7 +12,9 @@
   "exclude": [
     "node_modules"
   ],
-  "files": [
-    "declarations.d.ts"
+  "include": [
+    "declarations.d.ts",
+    "src/**/*.ts",
+    "src/**/*.tsx"
   ]
 }

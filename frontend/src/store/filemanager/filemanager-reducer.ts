@@ -5,18 +5,17 @@ export type State = {
   selectedFile?: File
 };
 
-export const initialState: State = {};
+const initialState: State = {};
 
 export default (state = initialState, action: Action) => {
   switch (action.type) {
-    case ActionType.SELECT: {
+    case ActionType.SELECT:
+      const { selectedFile } = action.payload;
       return {
         ...state,
-        selectedFile: action.payload.file
-      }
-    }
-    default: {
+        selectedFile
+      };
+    default:
       return state;
-    }
   }
 };

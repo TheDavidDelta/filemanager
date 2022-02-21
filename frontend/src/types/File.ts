@@ -12,7 +12,7 @@ type RegularFile = GenericFile & {
 
 type Directory = GenericFile & {
     kind: "folder",
-    content: undefined
+    children?: File[]
 }
 
 export type File = RegularFile | Directory;

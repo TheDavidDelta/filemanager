@@ -2,8 +2,8 @@ import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import { useSelector, TypedUseSelectorHook } from 'react-redux';
 import thunk from 'redux-thunk';
 
-import filemanagerReducer, { State as filemanagerState } from './filemanager/filemanager-reducer';
-import filesReducer, { State as filesState } from './files/files-reducer';
+import filemanagerReducer, { State as filemanagerState } from './filemanager';
+import filesReducer, { State as filesState } from './files';
 
 type RootState = {
   filemanager: filemanagerState,
