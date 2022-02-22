@@ -3,7 +3,6 @@
 interface CssExports {
   'content': string;
   'icon': string;
-  'regfile': string;
   'selected': string;
   'size': string;
 }

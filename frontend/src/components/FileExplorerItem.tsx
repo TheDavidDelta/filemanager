@@ -6,6 +6,7 @@ import { selectFile } from "../store/filemanager";
 import { useAppSelector } from "../store";
 import { useDispatch } from "react-redux";
 import parseSize from "../utils/parseSize";
+import { useState } from "react";
 
 type Props = {
     file: File;
@@ -15,23 +16,26 @@ type Props = {
 const FileExplorerItem = ({ file, depth = 0 }: Props) => {
     const dispatch = useDispatch();
     const { selectedFile } = useAppSelector(store => store.filemanager);
+    const [isOpen, setIsOpen] = useState(true);
 
     const isRegFile = file.kind === "file";
     const isSelected = file.id === selectedFile?.id;
 
-    const onSelectFile = () => {
-        isRegFile && !isSelected && dispatch(selectFile(file));
+    const handleItemEvent = () => {
+        isRegFile
+            ? !isSelected && dispatch(selectFile(file))
+            : file.children && setIsOpen(current => !current);
     };
 
     return (
         <div>
             <div
-                className={`${styles.content} ${isSelected && styles.selected} ${isRegFile && styles.regfile}`}
+                className={`${styles.content} ${isSelected && styles.selected}`}
                 style={{ paddingLeft: `${18 + depth * 8}px` }}
-                role={isRegFile ? "button" : ""}
-                tabIndex={isRegFile ? 0 : undefined}
-                onClick={onSelectFile}
-                onKeyDown={ev => ev.key === "Enter" && onSelectFile()}
+                role="button"
+                tabIndex={0}
+                onClick={handleItemEvent}
+                onKeyDown={ev => ev.key === "Enter" && handleItemEvent()}
             >
                 {isRegFile ? (
                     <FileIcon className={styles.icon} />
@@ -47,7 +51,7 @@ const FileExplorerItem = ({ file, depth = 0 }: Props) => {
             </div>
 
             <div>
-                {!isRegFile && file.children?.map(child => (
+                {!isRegFile && isOpen && file.children?.map(child => (
                     <FileExplorerItem key={child.id} file={child} depth={depth + 1} />
                 ))}
             </div>
